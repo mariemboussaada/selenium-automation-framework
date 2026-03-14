@@ -9,14 +9,19 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # ← fix warning Node 20
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v5      # ← v5 (Node 24)
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.10"           # ← guillemets !
+          python-version: "3.10"
+
+      - name: Set up Chrome                      # ← fix exit code 1
+        uses: browser-actions/setup-chrome@v1
 
       - name: Install dependencies
         run: |
@@ -31,6 +36,7 @@ jobs:
         run: pytest --html=reports/report.html --self-contained-html
 
       - name: Upload HTML report
+        if: always()                             # ← upload même si tests échouent
         uses: actions/upload-artifact@v4
         with:
           name: selenium-report
