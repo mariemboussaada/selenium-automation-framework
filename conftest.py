@@ -11,10 +11,16 @@ def driver(request):
 
     if browser.lower() == "chrome":
         options = webdriver.ChromeOptions()
-        options.add_argument("--start-maximized")
+        options.add_argument("--headless")               # ← ajouté
+        options.add_argument("--no-sandbox")             # ← ajouté
+        options.add_argument("--disable-dev-shm-usage")  # ← ajouté
+        options.add_argument("--disable-gpu")            # ← ajouté
+        options.add_argument("--window-size=1920,1080")  # ← remplace --start-maximized
         driver = webdriver.Chrome(options=options)
     elif browser.lower() == "firefox":
-        driver = webdriver.Firefox()
+        options = webdriver.FirefoxOptions()
+        options.add_argument("--headless")               # ← ajouté pour Firefox aussi
+        driver = webdriver.Firefox(options=options)
         driver.maximize_window()
     else:
         raise Exception(f"Browser {browser} not supported")
