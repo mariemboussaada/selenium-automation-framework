@@ -34,11 +34,10 @@ class CheckoutPage:
 
     def finish_checkout(self):
         finish_btn = self.wait.until(
-            EC.visibility_of_element_located(self.finish_btn)
+            EC.presence_of_element_located(self.finish_btn)
         )
         self.driver.execute_script("arguments[0].scrollIntoView(true);", finish_btn)
-        finish_btn.click()
-
+        self.driver.execute_script("arguments[0].click();", finish_btn)
     def get_confirmation_text(self):
         element = self.wait.until(
             EC.visibility_of_element_located(self.confirmation)
