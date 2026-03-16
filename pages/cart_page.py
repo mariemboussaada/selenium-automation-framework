@@ -8,7 +8,6 @@ class CartPage:
     remove_backpack = (By.CSS_SELECTOR, "[data-test='remove-sauce-labs-backpack']")
     cart_badge      = (By.CSS_SELECTOR, "[data-test='shopping-cart-badge']")
     cart_icon       = (By.CSS_SELECTOR, "[data-test='shopping-cart-link']")
-    cart_page_ready = (By.CSS_SELECTOR, "[data-test='cart-contents-container']")  # ← confirmé dans le HTML
 
     def __init__(self, driver):
         self.driver = driver
@@ -25,7 +24,7 @@ class CartPage:
     def open_cart(self):
         btn = self.wait.until(EC.element_to_be_clickable(self.cart_icon))
         btn.click()
-        self.wait.until(EC.visibility_of_element_located(self.cart_page_ready))
+        self.wait.until(lambda d: "cart" in d.current_url)  # ← URL, pas de sélecteur
 
     def get_cart_badge(self):
         return self.wait.until(EC.visibility_of_element_located(self.cart_badge))
