@@ -22,9 +22,10 @@ class CartPage:
         btn.click()
 
     def open_cart(self):
-        btn = self.wait.until(EC.element_to_be_clickable(self.cart_icon))
-        btn.click()
-        self.wait.until(lambda d: "cart" in d.current_url)  # ← URL, pas de sélecteur
+        # lien sans href → clic JavaScript obligatoire
+        btn = self.wait.until(EC.presence_of_element_located(self.cart_icon))
+        self.driver.execute_script("arguments[0].click();", btn)
+        self.wait.until(lambda d: "cart" in d.current_url)
 
     def get_cart_badge(self):
         return self.wait.until(EC.visibility_of_element_located(self.cart_badge))
