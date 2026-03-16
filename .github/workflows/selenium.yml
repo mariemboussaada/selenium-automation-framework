@@ -25,7 +25,7 @@ jobs:
         with:
           chrome-version: stable
 
-      - name: Install Java (requis par Allure)
+      - name: Install Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -60,3 +60,10 @@ jobs:
         with:
           name: allure-report
           path: reports/allure-report
+
+      - name: Deploy Allure Report to GitHub Pages  # ← ajouté
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: reports/allure-report
