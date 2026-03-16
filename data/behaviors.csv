@@ -1,0 +1,6 @@
+"Epic","Feature","Story","FAILED","BROKEN","PASSED","SKIPPED","UNKNOWN"
+"","Authentication","Invalid login","0","0","1","0","0"
+"","Shopping Cart","Add product to cart","0","0","1","0","0"
+"","Checkout","Complete checkout flow","0","0","1","0","0"
+"","Authentication","Valid login","0","0","1","0","0"
+"","Products","Products page display","0","0","1","0","0"
