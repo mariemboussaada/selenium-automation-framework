@@ -48,7 +48,7 @@ class CartPage:
         def open_cart(self):
             btn = self.wait.until(EC.element_to_be_clickable(self.cart_icon))
             btn.click()
-            self.wait.until(EC.visibility_of_element_located(self.cart_page_ready))
+            self.wait.until(lambda d: "cart" in d.current_url)
 
         def get_cart_badge(self):
             return self.wait.until(EC.visibility_of_element_located(self.cart_badge))
