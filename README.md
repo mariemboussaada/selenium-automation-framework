@@ -33,7 +33,7 @@ selenium-automation-framework/
 ├── requirements.txt
 └── .github/
     └── workflows/
-        └── test.yml
+        └── selenium.yml
 ```
 
 ---
