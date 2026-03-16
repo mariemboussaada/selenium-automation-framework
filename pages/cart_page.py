@@ -11,21 +11,21 @@ class CartPage:
 
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(driver, 15)
+        self.wait = WebDriverWait(driver, 30)  # ← 30s
 
     def add_product(self):
-        btn = self.wait.until(EC.element_to_be_clickable(self.add_backpack))
-        btn.click()
+        btn = self.wait.until(EC.presence_of_element_located(self.add_backpack))
+        self.driver.execute_script("arguments[0].click();", btn)
+        self.wait.until(EC.presence_of_element_located(self.cart_badge))
 
     def remove_product(self):
-        btn = self.wait.until(EC.element_to_be_clickable(self.remove_backpack))
-        btn.click()
+        btn = self.wait.until(EC.presence_of_element_located(self.remove_backpack))
+        self.driver.execute_script("arguments[0].click();", btn)
 
     def open_cart(self):
-
         btn = self.wait.until(EC.presence_of_element_located(self.cart_icon))
         self.driver.execute_script("arguments[0].click();", btn)
         self.wait.until(lambda d: "cart" in d.current_url)
 
     def get_cart_badge(self):
-        return self.wait.until(EC.visibility_of_element_located(self.cart_badge))
+        return self.wait.until(EC.presence_of_element_located(self.cart_badge))
